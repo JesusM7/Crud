@@ -13,7 +13,7 @@ const app = express();
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.set("port", 3000);
-app.listen(3000, () => { console.log("server activo") });
+app.listen(process.env.PORT || 3000, () => { console.log("server activo") });
 
 //asdjasdiashdiuhqiwehqwiehqwyrguygqweu
 app.set("view engine", "ejs");
