@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/style.css">
+    <title>registro</title>
+</head>
+
+<body>
+    <a class="back-button" href="/">🔙</a>
+    <section class="container">
+        <div class="register-container">
+            <div class="register-form" action="#">
+                <input id="id" type="hidden" value="<%= id %>" />
+                <label for="">Nombre</label>
+                <input value="<%= name %>" type="text" name="user" id="user" maxlength="50" minlength="03" required>
+                <label for="">Apellido</label>
+                <input value="<%= lastname %>" type="text" name="lastName" id="lastname" maxlength="50" minlength="03"
+                    required>
+                <label for="">Correo Electronico</label>
+                <input value="<%= email %>" type="email" name="email" id="email" required>
+                <button onclick="editar()" id="btn-editar">Editar</button>
+            </div>
+        </div>
+    </section>
+    <script>
+        async function editar() {
+            const name = document.getElementById("user").value;
+            const lastname = document.getElementById("lastname").value;
+            const email = document.getElementById("email").value;
+            const id = document.getElementById("id").value;
+            const data = JSON.stringify({ name, lastname, email });
+            const respuesta = await fetch('/usuarios/' + id, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: data
+            });
+            const dataRespuesta = await respuesta.json();
+            window.location.href = '/'
+        }
+    </script>
+</body>
+
+</html>

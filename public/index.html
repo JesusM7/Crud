@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/style.css">
+    <title>Inicio</title>
+</head>
+
+<body>
+    <div class="contenedor-tabla">
+        <table id="tabla" class="tabla">
+            <tr>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Email</th>
+                <th>Editar</th>
+                <th>Eliminar</th>
+            </tr>
+        </table>
+        <a class="registro-login-secundario" href="/registro">Registrarse</a>
+    </div>
+    <script>
+        fetch('/usuarios')
+            .then(d => d.json())
+            .then(d => {
+                const tabla = document.querySelector("#tabla");
+                d.forEach(element => {
+                    const tr = document.createElement("tr");
+                    tr.setAttribute("id", element.id);
+                    const tdNombre = document.createElement("td");
+                    const tdApellido = document.createElement("td");
+                    const tdEmail = document.createElement("td");
+                    const tdEditar = document.createElement("td");
+                    const tdEliminar = document.createElement("td");
+
+                    tdNombre.innerText = element.name;
+                    tdApellido.innerText = element.lastname;
+                    tdEmail.innerText = element.email;
+                    tdEditar.innerHTML = `<button onclick="editar(${element.id})">Editar</button>`;
+                    tdEliminar.innerHTML = `<button onclick="eliminar(${element.id})">Eliminar</button>`;
+
+                    tr.appendChild(tdNombre);
+                    tr.appendChild(tdApellido);
+                    tr.appendChild(tdEmail);
+                    tr.appendChild(tdEditar);
+                    tr.appendChild(tdEliminar);
+                    tabla.appendChild(tr);
+                    console.log(tabla)
+                });
+            });
+        function eliminar(id) {
+            fetch('/usuarios/' + id, {
+                method: 'DELETE',
+            })
+                .then(res => res.json())
+                .then(res => {
+                    document.getElementById(id).remove();
+                }).catch(() => {
+                    alert("No se puedo eliminar")
+                });
+        }
+        function editar(id) {
+            window.location.href = "/editar/"+id;
+        }
+    </script>
+</body>
+
+</html>
