@@ -13,14 +13,6 @@ boton.addEventListener("click", async function (e) {
     });
     boton.innerHTML = "registrarse";
     const dataRespuesta = await respuesta.json();
-    if (dataRespuesta.error) {
-        resultado.innerText = "Ocurrio un error ❌";
-    } else {
-        resultado.innerText = "Guardado! ✅";
-    }
-    setTimeout(() => {
-        resultado.innerText = "";
-    }, 1000);
-
+    window.location.href  = "/"
 
 });
