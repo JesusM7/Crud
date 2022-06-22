@@ -10,6 +10,9 @@
 </head>
 
 <body>
+    <header>
+        <%- include('partial/header.ejs') %>
+    </header>
     <div class="contenedor-tabla">
         <table id="tabla" class="tabla">
             <tr>
@@ -20,7 +23,6 @@
                 <th>Eliminar</th>
             </tr>
         </table>
-        <a class="registro-login-secundario" href="/registro">Registrarse</a>
     </div>
     <script>
         fetch('/usuarios')
